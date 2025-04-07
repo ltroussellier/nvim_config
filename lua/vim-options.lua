@@ -19,7 +19,10 @@ vim.opt.swapfile = false
 vim.wo.number = true
 vim.o.completeopt = 'menuone,noselect'
 vim.keymap.set({ "n", "x", "i" }, "<C-s>", "<cmd>write<CR>")
-
 vim.opt.linebreak = true
 vim.opt.laststatus = 3
 vim.opt.clipboard = "unnamedplus"
+
+-- Custom scroll amount (e.g., x lines)
+vim.keymap.set('n', '<C-f>', '12j', { noremap = true }) -- x lines down
+vim.keymap.set('n', '<C-b>', '12k', { noremap = true }) -- x lines up

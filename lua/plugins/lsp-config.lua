@@ -19,7 +19,6 @@ return {
     config = function()
       local capabilities = require("cmp_nvim_lsp").default_capabilities()
       local lspconfig = require("lspconfig")
-
       -- Format on save logic
       local on_attach = function(client, bufnr)
         if client.supports_method("textDocument/formatting") then
@@ -33,12 +32,10 @@ return {
           })
         end
       end
-
       lspconfig.html.setup({
         capabilities = capabilities,
         on_attach = on_attach,
       })
-
       lspconfig.lua_ls.setup({
         capabilities = capabilities,
         on_attach = on_attach,
@@ -48,8 +45,13 @@ return {
           },
         },
       })
-
       lspconfig.pyright.setup({
+        capabilities = capabilities,
+        on_attach = on_attach,
+      })
+
+      -- Add a dedicated Python formatter
+      lspconfig.ruff.setup({
         capabilities = capabilities,
         on_attach = on_attach,
       })
@@ -57,5 +59,20 @@ return {
       -- Keymaps
       vim.keymap.set("n", "K", vim.lsp.buf.hover, {})
     end
+  },
+
+  -- Add null-ls or conform.nvim for additional formatting options
+  {
+    "nvimtools/none-ls.nvim",
+    config = function()
+      local null_ls = require("null-ls")
+      null_ls.setup({
+        sources = {
+          null_ls.builtins.formatting.black,
+          -- You can add other formatters and linters here as well
+        },
+      })
+    end,
+    dependencies = { "nvim-lua/plenary.nvim" },
   },
 }

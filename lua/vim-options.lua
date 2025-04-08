@@ -26,3 +26,7 @@ vim.opt.clipboard = "unnamedplus"
 -- Custom scroll amount (e.g., x lines)
 vim.keymap.set('n', '<C-f>', '12j', { noremap = true }) -- x lines down
 vim.keymap.set('n', '<C-b>', '12k', { noremap = true }) -- x lines up
+
+vim.keymap.set("n", "<leader>i", function()
+  vim.lsp.buf.format({ async = true, name = "null-ls" })
+end, { desc = "Format with null-ls" })
